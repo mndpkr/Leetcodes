@@ -1,5 +1,5 @@
 //355. Design Twitter
-Runtime: 934 ms, Memory Usage: 45.3 MB
+//Runtime: 302 ms, Memory Usage: 45.3 MB
 
 class Twitter {
     Map<Integer, LinkedList<Integer>> followee;
@@ -38,19 +38,20 @@ class Twitter {
         LinkedList<Integer> lst = followee.getOrDefault(userId, new LinkedList<>());
         int count = 0;
         LinkedList<Integer> linklst = new LinkedList<>();
-        PriorityQueue<tweet> temp = new PriorityQueue<>();
+        LinkedList<tweet> temp = new LinkedList<>();
         //Iterator itr = pq.iterator();
         //System.out.println("------"+lst); 
-        while(!pq.isEmpty()){
+        while(count<10 && !pq.isEmpty()){
             tweet t = pq.poll();
             //System.out.println(t.tid+"  "+t.uid); 
-            if(count<10 && (t.uid==userId || lst.contains(t.uid))){
+            if(t.uid==userId || lst.contains(t.uid)){
                 linklst.addLast(t.tid);
                 count++;
             }
             temp.add(t);
         }
-        pq = temp;
+        for(tweet t: temp)
+            pq.add(t);
         return linklst;
     }
     
